@@ -33,13 +33,6 @@ int main(void) {
   printf("Definição do valor máximo de char\n");
   printf("tamanho de char = 8 bits\n");
   printf("Maior valor de 8 bits em binário = 11111111\n");
-  /*bits_char=`bc << EOF
-    ibase=2
-    11111111
-    EOF
-    `
-  printf("Maior valor de 8 bits em decimal = %d\n", bits_char);
-  */
   printf("max signed char = %d / min signed char = %d\n", maxc, minc);
   printf("max unsigned char = %d / min unsigned char = %d\n", max_uc, min_uc);
   printf("Colocando o valor máximo (255) numa signed char c = %d\n", valor_c);
