@@ -2,13 +2,24 @@
 
 void ft_print_comb(void){
   
-  char s[] = "0123456789";
+  int i, j, k;
 
-  printf("%c%c%c\n", s[0], s[1], s[2]);
+  for(i='0'; i<='9'; i++){
+    for(j=i+1; j<='9'; j++){
+      for(k=j+1; k<='9'; k++){
+        printf("%c%c%c", i, j, k);
+        //putchar(i);
+        //putchar(j);
+        //putchar(k);
 
-
-
-
+        if (i != '7' || j != '8' || k != '9'){
+          printf(", ");
+          //putchar(',');
+          //putchar(' ');
+        }
+      }
+    }
+  }  
 }
 
 
