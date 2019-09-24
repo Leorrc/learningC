@@ -38,4 +38,3 @@ int main(void) {
   printf("Colocando o valor máximo (255) numa signed char c = %d\n", valor_c);
   
 return 0;
-}
