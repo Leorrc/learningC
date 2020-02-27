@@ -4,11 +4,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
 void  ft_putstr(char *s)
 {
   while(*s)
@@ -16,16 +11,6 @@ void  ft_putstr(char *s)
     write(1, s, 1);
     s++;
   }
-}
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }
 
 int   isnumber(char c)
@@ -128,61 +113,49 @@ char   field_conversions(const char *format)
 
 int   ft_printf(const char *format, ...)
 {
-	va_list	arg;
-	char	*s;
-	size_t	len;	
+  va_list   arg;
+  char      *s;
+  int       i;
+  int       j;
+  int       len;
+  int       len2;
 
-	va_start(arg, format);
-	s = va_arg(arg, char *);
-	while (*format)
-	{
-		if (*format != '%')
-			ft_putchar(*format);
-		else
-		{
-			format++;
-			if (field_conversions(format) == 's')
-			{
-				if (field_flags(format) == '-')
-				{
-					len = field_width(format);
-					if (len > ft_strlen(s))
-					{
-						len = len - ft_strlen(s);
-						ft_putstr(s);
-						while (len > 0)
-						{	
-							ft_putchar(' ');
-							len--;
-						}
-					}
-					else
-						ft_putstr(s);
-				}
-				while (*format != 's')
-					format++;
-			}
-		}
-		format++;
-	}
-	va_end(arg);
-	return (strlen(format));
+  va_start(arg, format);
+  s = va_arg(arg, char *);
+  i = 0;
+  while (format[i])
+  {
+    if (format[i] != '%')
+      write(1, &format[i], 1);
+    else
+    {
+      i++;
+      if (format[i] == '5' && format[i + 1] == 's')
+      {
+        len = atoi(&format[i]);
+        len2 = strlen(s);
+        j = 0;
+        while (j < (len - len2))
+        {
+          write(1, " ", 1);
+          j++;
+        }
+        ft_putstr(s);
+        i++;
+      }
+    }
+    i++;
+  }
+  va_end(arg);
+  return (strlen(format));
 }
 
 int main()
 {
   char *p = "abc";
-  char *q = "def";
-  ft_printf("|%-5s|\n |%-2s|\n", p, q);
+  ft_printf("|%5s|\n", p);
+ 
   
-  /*
-  const char  *format;
-  char f;
-
-  format = "%5.6s";
-  f = field_flags(format);
-  printf("%c", f);
- */ 
 
 
 

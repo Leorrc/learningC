@@ -156,11 +156,7 @@ int   ft_printf(const char *format, ...)
 							len--;
 						}
 					}
-					else
-						ft_putstr(s);
 				}
-				while (*format != 's')
-					format++;
 			}
 		}
 		format++;
@@ -172,8 +168,7 @@ int   ft_printf(const char *format, ...)
 int main()
 {
   char *p = "abc";
-  char *q = "def";
-  ft_printf("|%-5s|\n |%-2s|\n", p, q);
+  ft_printf("|%-5s|\n", p);
   
   /*
   const char  *format;
