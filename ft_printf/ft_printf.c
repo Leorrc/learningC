@@ -113,21 +113,7 @@ int             ft_atoi(const char *str)
         return (sign * res);
 }
 
-int             ft_str_is_numeric(char *str)
-{
-        int i;
-
-        i = 0;
-        while (str[i] != '\0')
-        {
-                if (str[i] < '0' || str[i] > '9')
-                        return (0);
-                i++;
-        }
-        return (1);
-}
-
-char  *flags(const char *format, char *argument, char c)
+int   flags(const char *format, char *argument, char c)
 {
   char *s;
   char *w;
@@ -147,10 +133,18 @@ char  *flags(const char *format, char *argument, char c)
       w[j] = s[i];
       j++;
     }
-    i++
+    i++;
   }
   len = ft_atoi((const char *)w);
-  
+  i = 0;
+  while (i < len)
+  {
+    while (a[i])
+      ft_putchar(a[i]);
+    ft_putchar(' ');
+    i++;
+  }
+  return (i);
 }
 
 size_t length(char *str, char c)
@@ -197,8 +191,8 @@ int     ft_printf(const char *format, ...)
     else
     {
       i++;
-      if (format[i] == '-' && format[i + 2] == 's')
-        flags(&format[i], va_arg(arg, char *));
+      if (format[i] == '-')
+        flags(&format[i], va_arg(arg, char *), 's');
       /*
       if (format[i] == 'c')
         ft_putchar(va_arg(arg, int));
@@ -230,8 +224,8 @@ int main()
   ft_putchar('\n');
   */
   char *p;
-  p = "5";
-  ft_printf("p = |%-4d|", "6");
+  p = "abc6";
+  ft_printf("p = |%-4s|", p);
   ft_putchar('\n');
   //ft_printf("p = %p\n", p);
 // printf("p = %p\n", p);

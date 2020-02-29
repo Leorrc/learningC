@@ -36,6 +36,15 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
+char    *ft_strchr(const char *str, int ch)
+{
+        while (*str && *str != (char)ch)
+                str++;
+        if (*str == (char)ch)
+                return ((char *)str);
+        return (NULL);
+}
+
 int   isnumber(char c)
 {
   int   n;
@@ -45,6 +54,42 @@ int   isnumber(char c)
     n = 0;
   return (n);
 }
+
+void    *ft_memset(void *str, int c, size_t len)
+{
+        size_t  i;
+        char    *s;
+
+        s = str;
+        i = 0;
+        while (i < len)
+        {
+                s[i] = c;
+                i++;
+        }
+        return (s);
+}
+
+char   field_conversions(const char *format)
+{
+  char  *conv;
+  char  type;
+
+  conv = "cspdiuxX%";
+  type = 0;
+  format++;
+  while (*conv)
+  {
+	if (ft_strchr(format, *conv))
+	{
+      type = *conv;
+      break ;
+    }
+    conv++;
+  }
+  return (type);
+}
+
 
 char  field_flags(const char *format)
 {
@@ -70,22 +115,20 @@ char  field_flags(const char *format)
 size_t    field_width(const char *format)
 {
   int   width;
-  char	*f;
   
   width = 0;
-  f = (char *)format;
-  while (*f)
+  while (*format)
   {
-    if (isnumber(*f) && *f != '0')
+    if (isnumber(*format) && *format != '0')
     {
-      while (isnumber(*f))
+      while (isnumber(*format))
       {
-        width = width * 10 + *f - 48;
-        f++;
+        width = width * 10 + *format - 48;
+        format++;
       }
-	  break ;
+      break ;
     }
-    f++;
+    format++;
   }
   return (width);
 }
@@ -93,11 +136,18 @@ size_t    field_width(const char *format)
 size_t    field_precision(const char *format)
 {
   int   precision;
+  char  type;
 
+  type = field_conversions(format);
   precision = 0;
-  while (*format)
+  while (*format && *format != type)
   {
-    if (*format == '.')
+    if (ft_strchr(format, '.') == NULL)
+    {
+      precision = -1;
+      break ;
+    }
+    else if (*format == '.')
     {
       format++;
       while (isnumber(*format))
@@ -105,31 +155,11 @@ size_t    field_precision(const char *format)
         precision = precision * 10 + *format - 48;
         format++;
       }
-	  break ;
+      break ;
     }
     format++;
   }
   return (precision);
-}
-
-char   field_conversions(const char *format)
-{
-  char  *conv;
-  char  type;
-
-  conv = "cspdiuxX%";
-  type = 0;
-  format++;
-  while (*conv)
-  {
-	if (strchr(format, *conv))
-	{
-      type = *conv;
-      break ;
-    }
-    conv++;
-  }
-  return (type);
 }
 
 int   type_s(const char *format, char *arg)
@@ -143,6 +173,8 @@ int   type_s(const char *format, char *arg)
   f->width = field_width(format);
   f->precision = field_precision(format);
   len = strlen(arg);
+  if (f->precision == 0)
+    ft_putchar('\0');
   if (f->flag == '-')
   {
     if (f->width > ft_strlen(arg))
@@ -189,8 +221,8 @@ int main()
 {
   char *p = "abc";
   char *q = "abc";
-  ft_printf("|%-5s|\n", p);
-  printf("|%-5s|\n", q);
+  ft_printf("|%.s|\n", p);
+  printf("|%.s|\n", q);
   /*
   const char  *format;
   char f;
