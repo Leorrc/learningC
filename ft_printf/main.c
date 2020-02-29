@@ -108,11 +108,9 @@ char   field_conversions(const char *format)
 {
   char  *conv;
   char  type;
-  int   i;
 
   conv = "cspdiuxX%";
   type = 0;
-  i = 0;
   format++;
   while (*conv)
   {
@@ -141,8 +139,8 @@ int   ft_printf(const char *format, ...)
 		else
 		{
 			format++;
-			if (field_conversions(format) == 's')
-			{
+			//if (field_conversions(format) == 's')
+		//	{
 				if (field_flags(format) == '-')
 				{
 					len = field_width(format);
@@ -172,8 +170,9 @@ int   ft_printf(const char *format, ...)
 int main()
 {
   char *p = "abc";
-  char *q = "def";
-  ft_printf("|%-5s|\n |%-2s|\n", p, q);
+  char *q = "abc";
+  ft_printf("|%-5s|\n", p);
+  printf("|%-5s|\n", q);
   
   /*
   const char  *format;

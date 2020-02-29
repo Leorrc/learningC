@@ -4,7 +4,15 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-void	ft_putchar(char c)
+typedef struct s_fields
+{
+  char    flag;
+  char    type;
+  size_t  width;
+  size_t  precision;
+} t_fields;
+
+void  ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
@@ -59,7 +67,7 @@ char  field_flags(const char *format)
   return (flag);
 }
 
-int   field_width(const char *format)
+size_t    field_width(const char *format)
 {
   int   width;
   char	*f;
@@ -82,7 +90,7 @@ int   field_width(const char *format)
   return (width);
 }
 
-int   field_precision(const char *format)
+size_t    field_precision(const char *format)
 {
   int   precision;
 
@@ -124,11 +132,39 @@ char   field_conversions(const char *format)
   return (type);
 }
 
+int   type_s(const char *format, char *arg)
+{
+  size_t   len;
+  t_fields *f;
+
+  if (!(f = (t_fields *)malloc(sizeof(t_fields *))))
+    return (-1);
+  f->flag = field_flags(format);
+  f->width = field_width(format);
+  f->precision = field_precision(format);
+  len = strlen(arg);
+  if (f->flag == '-')
+  {
+    if (f->width > ft_strlen(arg))
+    {
+     f->width = f->width - len;
+     ft_putstr(arg);
+     while (f->width > 0)
+     {
+       ft_putchar(' ');
+       f->width--;
+     }
+    }
+    else
+      ft_putstr(arg);
+  }
+  return (0);
+}
+
 int   ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	char	*s;
-	size_t	len;	
 
 	va_start(arg, format);
 	s = va_arg(arg, char *);
@@ -139,24 +175,10 @@ int   ft_printf(const char *format, ...)
 		else
 		{
 			format++;
-			if (field_conversions(format) == 's')
-			{
-				if (field_flags(format) == '-')
-				{
-					len = field_width(format);
-					if (len > ft_strlen(s))
-					{
-						len = len - ft_strlen(s);
-						ft_putstr(s);
-						while (len > 0)
-						{	
-							ft_putchar(' ');
-							len--;
-						}
-					}
-				}
-			}
-		}
+      type_s(format, s); 
+			while (*format != 's')
+        format++;
+    }
 		format++;
 	}
 	va_end(arg);
@@ -166,8 +188,9 @@ int   ft_printf(const char *format, ...)
 int main()
 {
   char *p = "abc";
+  char *q = "abc";
   ft_printf("|%-5s|\n", p);
-  
+  printf("|%-5s|\n", q);
   /*
   const char  *format;
   char f;
