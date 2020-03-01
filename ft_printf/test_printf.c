@@ -126,7 +126,7 @@ int             ft_str_is_numeric(char *str)
         }
         return (1);
 }
-
+/*
 char  *flags(const char *format, char *argument, char c)
 {
   char *s;
@@ -147,11 +147,11 @@ char  *flags(const char *format, char *argument, char c)
       w[j] = s[i];
       j++;
     }
-    i++
+    i++;
   }
   len = ft_atoi((const char *)w);
   
-}
+}*/
 
 size_t length(char *str, char c)
 {
@@ -197,9 +197,6 @@ int     ft_printf(const char *format, ...)
     else
     {
       i++;
-      if (format[i] == '-' && format[i + 2] == 's')
-        flags(&format[i], va_arg(arg, char *));
-      /*
       if (format[i] == 'c')
         ft_putchar(va_arg(arg, int));
       else if (format[i] == 'd')
@@ -208,9 +205,6 @@ int     ft_printf(const char *format, ...)
         ft_putstr(va_arg(arg, char *));
       else if (format[i] == 'p')
         ft_itoa_base(va_arg(arg, int), 16);
-      else if (format[i] == 'u')
-        ft_putnbr(va_arg(arg, uintmax_t));
-        */
     }
     i++;
   }
@@ -225,16 +219,9 @@ int main()
   ft_putchar('\n');
   ft_printf("x = %s", "abc");
   ft_putchar('\n');
-  ft_printf("x = %d", 5);
-  ft_printf("d = %d, c = %c, s = %s", 5, 'a', "abc");
+  ft_printf("x = %d", 5);*/
+  ft_printf("d = %s, c = %s, s = %s", "abc", "fbjigb" , "55586");
   ft_putchar('\n');
-  */
-  char *p;
-  p = "5";
-  ft_printf("p = |%-4d|", "6");
-  ft_putchar('\n');
-  //ft_printf("p = %p\n", p);
-// printf("p = %p\n", p);
-//  ft_printf("p = %p\n", p);
+  
   return (0);
 }
