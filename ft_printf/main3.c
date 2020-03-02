@@ -108,11 +108,9 @@ char   field_conversions(const char *format)
 {
   char  *conv;
   char  type;
-  int   i;
 
   conv = "cspdiuxX%";
   type = 0;
-  i = 0;
   format++;
   while (*conv)
   {

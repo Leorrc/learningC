@@ -70,6 +70,28 @@ void    *ft_memset(void *str, int c, size_t len)
         return (s);
 }
 
+char    *ft_strndup(const char *s, size_t n)
+{
+        char    *dup;
+        int             i;
+        size_t          len;
+
+        len = 0;
+        while (s[len] && len < n)
+                len++;
+        dup = malloc((len + 1) * sizeof(char));
+        if (!dup)
+                return (0);
+        i = 0;
+        while (s[i])
+        {
+                dup[i] = s[i];
+                i++;
+        }
+        dup[i] = '\0';
+        return (dup);
+}
+
 char   field_conversions(const char *format)
 {
   char  *conv;
@@ -162,7 +184,6 @@ size_t    field_precision(const char *format)
   return (precision);
 }
 
-
 int   type_s(const char *format, char *arg)
 {
   size_t   len;
@@ -178,18 +199,7 @@ int   type_s(const char *format, char *arg)
     ft_putchar('\0');
   if (f->flag == '-')
   {
-    if (f->width > ft_strlen(arg))
-    {
-     f->width = f->width - len;
-     ft_putstr(arg);
-     while (f->width > 0)
-     {
-       ft_putchar(' ');
-       f->width--;
-     }
-    }
-    else
-      ft_putstr(arg);
+
   }
   return (0);
 }

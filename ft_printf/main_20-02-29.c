@@ -8,8 +8,8 @@ typedef struct s_fields
 {
   char    flag;
   char    type;
-  size_t  width;
-  size_t  precision;
+  int width;
+  int  precision;
 } t_fields;
 
 void  ft_putchar(char c)
@@ -26,7 +26,7 @@ void  ft_putstr(char *s)
   }
 }
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -43,6 +43,31 @@ char    *ft_strchr(const char *str, int ch)
         if (*str == (char)ch)
                 return ((char *)str);
         return (NULL);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char			*sub;
+	unsigned int	i;
+	unsigned int	j;
+
+	if (s == NULL)
+		return (NULL);
+	sub = (char *)malloc((len + 1) * (sizeof(char)));
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (i < start && s[i])
+		i++;
+	j = 0;
+	while (j < len && s[i])
+	{
+		sub[j] = s[i];
+		j++;
+		i++;
+	}
+	sub[j] = '\0';
+	return (sub);
 }
 
 int   isnumber(char c)
@@ -70,7 +95,7 @@ void    *ft_memset(void *str, int c, size_t len)
         return (s);
 }
 
-char   field_conversions(const char *format)
+char   field_types(const char *format)
 {
   char  *conv;
   char  type;
@@ -112,7 +137,7 @@ char  field_flags(const char *format)
   return (flag);
 }
 
-size_t    field_width(const char *format)
+int    field_width(const char *format)
 {
   int   width;
   
@@ -133,16 +158,16 @@ size_t    field_width(const char *format)
   return (width);
 }
 
-size_t    field_precision(const char *format)
+int    field_precision(const char *format)
 {
   int   precision;
   char  type;
 
-  type = field_conversions(format);
+  type = field_types(format);
   precision = 0;
   while (*format && *format != type)
   {
-    if (ft_strchr(format, '.') == NULL)
+    if (!(ft_strchr(format, '.')))
     {
       precision = -1;
       break ;
@@ -162,68 +187,91 @@ size_t    field_precision(const char *format)
   return (precision);
 }
 
-
-int   type_s(const char *format, char *arg)
+t_fields    *field_value(const char *format)
 {
-  size_t   len;
-  t_fields *f;
+    t_fields    *f;
+    
+    if (!(f = (t_fields *)malloc(sizeof(t_fields *))))
+        return (NULL);
+    f->flag = field_flags(format);
+    f->width = field_width(format);
+    f->precision = field_precision(format);
+    f->type = field_types(format);
+    return (f);
+}
 
-  if (!(f = (t_fields *)malloc(sizeof(t_fields *))))
-    return (-1);
-  f->flag = field_flags(format);
-  f->width = field_width(format);
-  f->precision = field_precision(format);
-  len = strlen(arg);
-  if (f->precision == 0)
-    ft_putchar('\0');
-  if (f->flag == '-')
-  {
-    if (f->width > ft_strlen(arg))
+int   type_s(t_fields *f, char *arg)
+{
+    int     len;
+    char    *s;
+    
+    len = ft_strlen(arg);
+    if (f->precision)
     {
-     f->width = f->width - len;
-     ft_putstr(arg);
-     while (f->width > 0)
-     {
-       ft_putchar(' ');
-       f->width--;
-     }
+        if (f->precision == 0)
+            ft_putchar('\0');
+        else if (len > f->precision)
+            s = ft_substr(arg, 0, f->precision);
+    }
+    len = ft_strlen(s);
+    if (len >= f->width)
+    {
+        ft_putstr(s);
+        return (0);
+    }
+    f->width = f->width - len;
+    if (f->flag == '-')
+    {
+        ft_putstr(s);
+        while (f->width > 0)
+        {
+            ft_putchar(' ');
+            f->width--;
+        }
     }
     else
-      ft_putstr(arg);
-  }
-  return (0);
+    {
+        while (f->width > 0)
+        {
+            ft_putchar(' ');
+            f->width--;
+        }
+        ft_putstr(s);
+    }
+        
+    return (0);
 }
 
 int   ft_printf(const char *format, ...)
 {
-	va_list	arg;
-	char	*s;
-
+	va_list     arg;
+	t_fields    *f;
+	
 	va_start(arg, format);
-	s = va_arg(arg, char *);
+	f = field_value(format);
 	while (*format)
 	{
 		if (*format != '%')
 			ft_putchar(*format);
 		else
 		{
-			format++;
-      type_s(format, s); 
-			while (*format != 's')
-        format++;
-    }
+		    if (f->type == 's')
+                type_s(f, va_arg(arg, char *));
+            while (*format != f->type)
+                format++;
+		}
 		format++;
-	}
+    }
 	va_end(arg);
-	return (strlen(format));
+	return (ft_strlen(format));
 }
 
 int main()
 {
   char *p = "abc";
   char *q = "abc";
-  ft_printf("|%.s|\n", p);
-  printf("|%.s|\n", q);
+  ft_printf("|%.2s|\n", p);
+  printf("|%.2s|\n", q);
   /*
   const char  *format;
   char f;
@@ -238,4 +286,3 @@ int main()
 
   return 0;
 }
-
