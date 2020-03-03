@@ -340,6 +340,7 @@ int   type_s(t_fields *f, char *arg)
     char    *s;
     
     len = ft_strlen(arg);
+	s = ft_strdup(arg);
     if (f->precision)
     {
         if (f->precision == 0)
