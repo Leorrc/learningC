@@ -192,6 +192,21 @@ char	*ft_strnew(int len)
 	return (new);
 }
 
+void    *ft_memchr(const void *s, int c, size_t n)
+{
+        const char      *str;
+
+        str = (const char *)s;
+        while (n > 0)
+        {
+                if (*str == c)
+                        return ((void *)(str++));
+                str++;
+                n--;
+        }
+        return (NULL);
+}
+
 char   field_types(const char *format)
 {
   char  *conv;
@@ -340,7 +355,7 @@ int   type_s(t_fields *f, char *arg)
     char    *s;
     
     len = ft_strlen(arg);
-	s = ft_strdup(arg);
+    s = ft_strdup(arg);
     if (f->precision)
     {
         if (f->precision == 0)
@@ -387,13 +402,12 @@ int		type_d(t_fields *f, int arg)
 
 	i = arg;
 	nbr = ft_itoa_base(i, 10);
-	len = (int)ft_strlen(nbr);
+	n = strdup(nbr);
+  len = (int)ft_strlen(nbr);
 	if (f->precision)
 	{
 		if (f->precision == 0)
 			ft_putchar('\0');
-		else if (len > f->precision)
-			n = ft_substr(nbr, 0, f->precision);
 		else if (len < f->precision)
 		{
 			n = ft_strnew(f->precision);
@@ -404,7 +418,10 @@ int		type_d(t_fields *f, int arg)
 			{
 				*n = '0';
 				f->precision--;
+        n++;
 			}
+      
+      ft_putstr(n);
 		}
 	}
 	if (f->width <= (int)ft_strlen(n))
@@ -531,8 +548,8 @@ int   ft_printf(const char *format, ...)
 
 int main()
 {
-    ft_printf("ft_printf = |%.10d|\n", -1234567);
-       printf("---printf = |%.10d|\n", -1234567);
+    ft_printf("ft_printf = |%10.9d|\n", -1234567);
+       printf("---printf = |%10.9d|\n", -1234567);
 	//printf("%s\n", ft_itoa_base(200, 10));
 	return 0;
 }
