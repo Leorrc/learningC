@@ -393,6 +393,8 @@ int   type_s(t_fields *f, char *arg)
     return (0);
 }
 
+//char precision_d(int len, int precision);
+
 int		type_d(t_fields *f, int arg)
 {
 	char 	*nbr;
