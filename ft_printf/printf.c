@@ -36,7 +36,6 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-<<<<<<< HEAD
 void	ft_putnbr(int n)
 {
 	unsigned int	j;
@@ -52,8 +51,6 @@ void	ft_putnbr(int n)
 	ft_putchar((j % 10) + 48);
 }
 
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 char    *ft_strchr(const char *str, int ch)
 {
         while (*str && *str != (char)ch)
@@ -63,7 +60,6 @@ char    *ft_strchr(const char *str, int ch)
         return (NULL);
 }
 
-<<<<<<< HEAD
 char	*ft_strdup(const char *s)
 {
 	char	*dup;
@@ -86,8 +82,8 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
+
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*sub;
@@ -113,7 +109,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-<<<<<<< HEAD
 int     nblen(long n, int base)
 {
         int             len;
@@ -161,8 +156,6 @@ char    *ft_itoa_base(long i, int base)
         return (result);
 }
 
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 int   isnumber(char c)
 {
   int   n;
@@ -186,6 +179,17 @@ void    *ft_memset(void *str, int c, size_t len)
                 i++;
         }
         return (s);
+}
+
+char	*ft_strnew(int len)
+{
+	char	*new;
+
+	new = (char *)malloc((len + 1) * sizeof(char));
+	if (!new)
+		return (NULL);
+	ft_memset(new, '\0', (len + 1));
+	return (new);
 }
 
 char   field_types(const char *format)
@@ -220,9 +224,9 @@ char  field_flags(const char *format)
   flag = 0;
   while (f[i])
   {
-   if (f[i] == '-' || f[i] == '0')
+   if (f[0] == '-' || f[0] == '0')
    {
-	   flag = f[i];
+	   flag = f[0];
 	   break ;
    }
    i++;
@@ -230,25 +234,18 @@ char  field_flags(const char *format)
   return (flag);
 }
 
-<<<<<<< HEAD
 int    field_width(const char *format, va_list arg)
-=======
-int    field_width(const char *format)
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 {
   int   width;
   
   width = 0;
   while (*format)
   {
-<<<<<<< HEAD
     if (*format == '*')
     {
         width = va_arg(arg, int);
         break ;
     }    
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
     if (isnumber(*format) && *format != '0')
     {
       while (isnumber(*format))
@@ -263,11 +260,7 @@ int    field_width(const char *format)
   return (width);
 }
 
-<<<<<<< HEAD
 int    field_precision(const char *format, va_list arg)
-=======
-int    field_precision(const char *format)
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 {
   int   precision;
   char  type;
@@ -284,14 +277,11 @@ int    field_precision(const char *format)
     else if (*format == '.')
     {
       format++;
-<<<<<<< HEAD
       if (*format == '*')
       {
           precision = va_arg(arg, int);
           break ;
       }
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
       while (isnumber(*format))
       {
         precision = precision * 10 + *format - 48;
@@ -304,29 +294,19 @@ int    field_precision(const char *format)
   return (precision);
 }
 
-<<<<<<< HEAD
 t_fields    *field_value(const char *format, va_list arg)
-=======
-t_fields    *field_value(const char *format)
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 {
     t_fields    *f;
     
     if (!(f = (t_fields *)malloc(sizeof(t_fields *))))
         return (NULL);
     f->flag = field_flags(format);
-<<<<<<< HEAD
     f->width = field_width(format, arg);
     f->precision = field_precision(format, arg);
-=======
-    f->width = field_width(format);
-    f->precision = field_precision(format);
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
     f->type = field_types(format);
     return (f);
 }
 
-<<<<<<< HEAD
 int    type_c(t_fields *f, int arg)
 {
     unsigned char c;
@@ -354,37 +334,19 @@ int    type_c(t_fields *f, int arg)
     return (0);
 }
 
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 int   type_s(t_fields *f, char *arg)
 {
     int     len;
     char    *s;
     
     len = ft_strlen(arg);
-<<<<<<< HEAD
-=======
-    s = (char *)malloc(len + 1);
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
     if (f->precision)
     {
         if (f->precision == 0)
             ft_putchar('\0');
-<<<<<<< HEAD
         else if (len > f->precision)
             s = ft_substr(arg, 0, f->precision);
     }
-=======
-        else if (len >= f->precision)
-            s = ft_substr(arg, 0, f->precision);
-    }
-
-
-    //ft_putchar('1');
-    //ft_putchar('\n');
-
-
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
     len = ft_strlen(s);
     if (len >= f->width)
     {
@@ -401,11 +363,8 @@ int   type_s(t_fields *f, char *arg)
             f->width--;
         }
     }
-<<<<<<< HEAD
     else if (f->flag == '0')
         return (-1);
-=======
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
     else
     {
         while (f->width > 0)
@@ -415,7 +374,6 @@ int   type_s(t_fields *f, char *arg)
         }
         ft_putstr(s);
     }
-<<<<<<< HEAD
     return (0);
 }
 
@@ -424,15 +382,29 @@ int		type_d(t_fields *f, int arg)
 	char 	*nbr;
 	char	*n;
 	long	i;
+	int		len;
 
 	i = arg;
 	nbr = ft_itoa_base(i, 10);
+	len = (int)ft_strlen(nbr);
 	if (f->precision)
 	{
 		if (f->precision == 0)
 			ft_putchar('\0');
-		else if ((int)ft_strlen(nbr) > f->precision)
+		else if (len > f->precision)
 			n = ft_substr(nbr, 0, f->precision);
+		else if (len < f->precision)
+		{
+			n = ft_strnew(f->precision);
+			if (i < 0)
+				*n = '-';
+			f->precision = f->precision - len;
+			while (f->precision > 0)
+			{
+				*n = '0';
+				f->precision--;
+			}
+		}
 	}
 	if (f->width <= (int)ft_strlen(n))
 	{
@@ -467,35 +439,77 @@ int		type_d(t_fields *f, int arg)
 		}
 		ft_putstr(n);
 	}
+	free(n);
 	return (0);
 }
 
-=======
-    free(s);
-    return (0);
+int		type_x(t_fields *f, int arg)
+{
+	char	*nbr;
+	char	*x;
+	long	i;
+	int		len;
+	
+	i = arg;
+	nbr = ft_itoa_base(i, 16);
+	len = (int)ft_strlen(nbr);
+	if (f->precision)
+	{
+		if (f->precision == 0)
+			ft_putchar('\0');
+		else if (len > f->precision)
+			x = ft_substr(nbr, 0, f->precision);
+	}
+	len = ft_strlen(x);
+	if (f->width <= len)
+	{
+		ft_putstr(x);
+		return (0);
+	}
+	f->width = f->width - len;
+	if (f->flag == '-')
+	{
+		ft_putstr(x);
+		while (f->width > 0)
+		{
+			ft_putchar(' ');
+			f->width--;
+		}
+	}
+	else if (f->flag == '0')
+	{
+		while (f->width > 0)
+		{
+			ft_putchar('0');
+			f->width--;
+		}
+		ft_putstr(x);
+	}
+	else
+	{
+		while (f->width > 0)
+		{
+			ft_putchar(' ');
+			f->width--;
+		}
+		ft_putstr(x);
+	}
+	return (0);
 }
 
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 int   ft_printf(const char *format, ...)
 {
 	va_list     arg;
 	t_fields    *f;
 	
 	va_start(arg, format);
-<<<<<<< HEAD
 
 	while (*format)
 	{
-=======
-	while (*format)
-	{
-	  f = field_value(format);
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 		if (*format != '%')
 			ft_putchar(*format);
 		else
 		{
-<<<<<<< HEAD
             f = field_value(format, arg);
 		    if (f->type == 's')
                 type_s(f, va_arg(arg, char *));
@@ -503,39 +517,24 @@ int   ft_printf(const char *format, ...)
                 type_c(f, va_arg(arg, int));
 			else if (f->type == 'd' || f->type == 'i')
 				type_d(f, va_arg(arg, int));
+			else if (f->type == 'x')
+				type_x(f, va_arg(arg, int));
             while (*format != f->type)
                 format++;
 		}
 		format++;
     }
-=======
-		    if (f->type == 's')
-          type_s(f, va_arg(arg, char *));
-        while (*format != f->type)
-          format++;
-		}
-		format++;
-  }
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
 	va_end(arg);
 	return (ft_strlen(format));
 }
 
 int main()
 {
-<<<<<<< HEAD
-    ft_printf("ft_printf = |%d|\n", -4);
-    printf("printf = |%d|\n", -4);
+    ft_printf("ft_printf = |%.10d|\n", -1234567);
+       printf("---printf = |%.10d|\n", -1234567);
 	//printf("%s\n", ft_itoa_base(200, 10));
 	return 0;
 }
 
 
 
-=======
-  char *p = "abc";
-  char *q = "leonardo";
-  ft_printf("|%13s| |%13s|\n", p, q);
-  return 0;
-}
->>>>>>> effbd94031711372d3e902fa25d3407965ec0526
