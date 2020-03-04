@@ -393,73 +393,74 @@ int   type_s(t_fields *f, char *arg)
     return (0);
 }
 
-//char precision_d(int len, int precision);
+char    *precision_d_positive(t_fields *f, int arg)
+{
+    char    *p;
+    char    *s;
+    int     len;
+    int     i;
+    
+    i = -1;
+    s = ft_itoa_base(arg, 10);
+    len = (int)ft_strlen(s);
+    if (f->precision < len && f->precision != 0)
+        p = s;
+    else if (f->precision > len)
+    {
+        p = (char *)malloc(f->precision + 1);
+        while (++i < (f->precision - len))
+            p[i] = '0';
+        while (i < f->precision)
+        {
+            p[i] = *s++;
+            i++;
+        }
+        p[i] = '\0';
+    }
+    else if (f->precision == 0 && arg == 0)
+        p = "\0";
+    return (p);
+}
+
+char    *precision_d_negative(t_fields *f, int arg)
+{
+    char    *p;
+    char    *s;
+    int     len;
+    int     i;
+    
+    i = 0;
+    s = ft_itoa_base(arg, 10);
+    len = ft_strlen(s);
+    if (f->precision < len && f->precision != 0)
+        p = s;
+    else if (f->precision > len)
+    {
+        p = (char *)malloc(f->precision + 2 * sizeof(char));
+        p[i] = '-';
+        printf("%c", p[0]);
+        while (++i < (f->precision - len))
+            p[i] = '0';
+        while (*s)
+        {
+            s++;
+            p[i] = *s;
+            i++;
+        }
+        p[i] = '\0';
+    }
+    return (p);
+}
 
 int		type_d(t_fields *f, int arg)
 {
-	char 	*nbr;
-	char	*n;
-	long	i;
-	int		len;
-
-	i = arg;
-	nbr = ft_itoa_base(i, 10);
-	n = strdup(nbr);
-  len = (int)ft_strlen(nbr);
-	if (f->precision)
-	{
-		if (f->precision == 0)
-			ft_putchar('\0');
-		else if (len < f->precision)
-		{
-			n = ft_strnew(f->precision);
-			if (i < 0)
-				*n = '-';
-			f->precision = f->precision - len;
-			while (f->precision > 0)
-			{
-				*n = '0';
-				f->precision--;
-        n++;
-			}
-      
-      ft_putstr(n);
-		}
-	}
-	if (f->width <= (int)ft_strlen(n))
-	{
-		ft_putstr(n);
-		return (0);
-	}
-	f->width = f->width - ft_strlen(n);
-	if (f->flag == '-')
-	{
-		ft_putstr(n);
-		while (f->width > 0)
-		{
-			ft_putchar(' ');
-			f->width--;
-		}
-	}
-	else if (f->flag == '0')
-	{
-		while (f->width > 0)
-		{
-			ft_putchar('0');
-			f->width--;
-		}
-		ft_putstr(n);
-	}
+	char    *d;
+	
+	d = precision_d_positive(f, arg);
+	if (d)
+	    ft_putstr(d);
 	else
-	{
-		while (f->width > 0)
-		{
-			ft_putchar(' ');
-			f->width--;
-		}
-		ft_putstr(n);
-	}
-	free(n);
+	    ft_putstr(ft_itoa_base(arg, 10));
 	return (0);
 }
 
