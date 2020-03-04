@@ -6,10 +6,10 @@
 
 typedef struct s_fields
 {
-  char    flag;
-  char    type;
-  int width;
-  int  precision;
+  char      flag;
+  char      type;
+  int       width;
+  int       precision;
 } t_fields;
 
 void  ft_putchar(char c)
@@ -81,8 +81,6 @@ char	*ft_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-
-
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -403,23 +401,23 @@ char    *precision_d_positive(t_fields *f, int arg)
     i = -1;
     s = ft_itoa_base(arg, 10);
     len = (int)ft_strlen(s);
-    if (f->precision < len && f->precision != 0)
-        p = s;
+    if (f->precision == 0 && arg == 0)
+      p = "\0";
+    else if (f->precision < len)
+      p = s;
     else if (f->precision > len)
     {
-        p = (char *)malloc(f->precision + 1);
-        while (++i < (f->precision - len))
-            p[i] = '0';
-        while (i < f->precision)
-        {
-            p[i] = *s++;
-            i++;
-        }
-        p[i] = '\0';
+      p = (char *)malloc(f->precision + 1);
+      while (++i < (f->precision - len))
+        p[i] = '0';
+      while (i < f->precision)
+      {
+        p[i] = *s++;
+        i++;
+      }
+      p[i] = '\0';
     }
-    else if (f->precision == 0 && arg == 0)
-        p = "\0";
-    return (p);
+  return (p);
 }
 
 char    *precision_d_negative(t_fields *f, int arg)
@@ -431,23 +429,24 @@ char    *precision_d_negative(t_fields *f, int arg)
     
     i = 0;
     s = ft_itoa_base(arg, 10);
-    len = ft_strlen(s);
-    if (f->precision < len && f->precision != 0)
-        p = s;
+    len = ft_strlen(s) - 1;
+    if (f->precision == 0 && arg == 0)
+      p ="\0";
+    else if (f->precision < len)
+      p = s;
     else if (f->precision > len)
     {
-        p = (char *)malloc(f->precision + 2 * sizeof(char));
-        p[i] = '-';
-        printf("%c", p[0]);
-        while (++i < (f->precision - len))
-            p[i] = '0';
-        while (*s)
-        {
-            s++;
-            p[i] = *s;
-            i++;
-        }
-        p[i] = '\0';
+      p = (char *)malloc(f->precision + 1);
+      p[i] = '-';
+      while (++i <= (f->precision - len))
+        p[i] = '0';
+      while (i <= f->precision)
+      {
+        s++;
+        p[i] = *s;
+        i++;
+      }
+      p[i] = '\0';
     }
     return (p);
 }
@@ -456,7 +455,10 @@ int		type_d(t_fields *f, int arg)
 {
 	char    *d;
 	
-	d = precision_d_positive(f, arg);
+	if (arg > 0)
+	    d = precision_d_positive(f, arg);
+	else
+	    d = precision_d_negative(f, arg);
 	if (d)
 	    ft_putstr(d);
 	else
@@ -551,11 +553,8 @@ int   ft_printf(const char *format, ...)
 
 int main()
 {
-    ft_printf("ft_printf = |%10.9d|\n", -1234567);
-       printf("---printf = |%10.9d|\n", -1234567);
+    ft_printf("ft_printf = |%.10d|\n", -123456);
+       printf("---printf = |%.10d|\n", -123456);
 	//printf("%s\n", ft_itoa_base(200, 10));
 	return 0;
 }
-
-
-
