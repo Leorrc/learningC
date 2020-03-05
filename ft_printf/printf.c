@@ -450,22 +450,46 @@ char    *precision_d_negative(t_fields *f, int arg)
     }
     return (p);
 }
-//char width_d
+
+char	*width_d(t_fields *f, char *d) 
+{
+	char	*w;
+	int 	len;
+	
+	
+	len = (int)ft_strlen(d);
+	if (f->width <= len)
+		w = ft_strdup(d);
+	else
+	{
+		w = (char *)malloc(len + 1);
+		f->width = f->width - len;
+		while (f->width-- > 0)
+			*w++ = ' ';
+		while (*d)
+			*w++ = *d++;		
+	}
+	return (w);
+}
 
 int		type_d(t_fields *f, int arg)
 {
 	char    *d;
+	char		*w;
 	
+	d = 0;
+	w = 0;
 	if (arg > 0)
 	    d = precision_d_positive(f, arg);
 	else
 	    d = precision_d_negative(f, arg);
+	w = width_d(f, d);
 	if (d)
-	    ft_putstr(d);
+	    ft_putstr(w);
 	else
 	    ft_putstr(ft_itoa_base(arg, 10));
 	return (0);
-}
+}	
 
 int		type_x(t_fields *f, int arg)
 {
