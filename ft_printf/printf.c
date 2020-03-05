@@ -450,6 +450,7 @@ char    *precision_d_negative(t_fields *f, int arg)
     }
     return (p);
 }
+//char width_d
 
 int		type_d(t_fields *f, int arg)
 {
