@@ -24,9 +24,9 @@ int		field_width(const char *format, va_list arg)
 			width = va_arg(arg, int);
 			break;
 		}
-		if (isnumber(*format) && *format != '0')
+		if (ft_isnumber(*format) && *format != '0')
 		{
-			while (isnumber(*format))
+			while (ft_isnumber(*format))
 			{
 				width = width * 10 + *format - 48;
 				format++;
