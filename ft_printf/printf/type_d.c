@@ -6,60 +6,63 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:00:45 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 17:59:28 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:17:33 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*precision_d(char *prec, t_fields *f)
+char	*precision_d(char *src, t_fields *f)
 {
 	char	*p;
 	int		len;
 
-	len = (int)ft_strlen(prec);
+	len = (int)ft_strlen(src);
 	if (f->precision < len)
-		p = ft_strdup(prec);
+		p = ft_strdup(src);
 	else
 	{
-		if (prec[0] == '-')
+		p = ft_strnew(f->precision);
+		if (src[0] == '-')
 		{
-			p = ft_strnew(f->precision);
 			p[0] = '-';
 			ft_memset(&p[1], '0', f->precision - len + 1);
-			ft_memmove(&p[f->precision - len + 2], &prec[1], len);
+			ft_memmove(&p[f->precision - len + 2], &src[1], len);
 		}
 		else
 		{
-			p = ft_strnew(f->precision);
 			ft_memset(p, '0', f->precision - len);
-			ft_memmove(&p[f->precision - len], prec, len);
+			ft_memmove(&p[f->precision - len], src, len);
 		}
 	}
 	return (p);
 }
 
-char	*width_d(char *d, t_fields *f)
+char	*width_d(char *src, t_fields *f)
 {
 	char	*w;
 	int		len;
 	
-	len = (int)ft_strlen(d);
+	len = (int)ft_strlen(src);
 	if (f->width <= len)
-		w = ft_strdup(d);
+		w = ft_strdup(src);
 	else
 	{
+		w = ft_strnew(f->width);
 		if (f->flag == '-')
 		{
-			w = ft_strnew(f->width);
-			ft_memmove(w, d, len);
+			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
+		}
+		else if (f->flag == '0')
+		{
+			ft_memset(w, '0', f->width - len);
+			ft_memmove(&w[f->width - len], src, len);
 		}
 		else
 		{	
-			w = ft_strnew(f->width);
 			ft_memset(w, ' ', f->width - len);
-			ft_memmove(&w[f->width - len], d, len);
+			ft_memmove(&w[f->width - len], src, len);
 		}
 	}
 	return (w);

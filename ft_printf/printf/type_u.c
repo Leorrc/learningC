@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:27:06 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 18:48:46 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:08:21 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ char	*width_u(char *src, t_fields *f)
 		{
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
+		}
+		else if (f->flag == '0')
+		{
+			ft_memset(w, '0', f->width - len);
+			ft_memmove(&w[f->width - len], src, len);
 		}
 		else
 		{
