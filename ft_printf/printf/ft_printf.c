@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:09:13 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/06 21:10:36 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:21:22 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		ft_printf(const char *format, ...)
 				type_s(f, va_arg(arg, char *));
 			else if (f->type == 'c')
 				type_c(f, va_arg(arg, int));
+			else if (f->type == 'd')
+				type_d(f, va_arg(arg, int));
 			while (*format != f->type)
 				format++;
 		}

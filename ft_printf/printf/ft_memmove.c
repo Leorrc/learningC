@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_c.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 20:17:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 14:54:46 by lramos-r         ###   ########.fr       */
+/*   Created: 2020/01/21 17:20:49 by lramos-r          #+#    #+#             */
+/*   Updated: 2020/03/09 15:44:56 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		type_c(t_fields *f, int arg)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	unsigned char	c;
+	size_t				i;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	c = (unsigned char)arg;
-	if (f->width == 0)
-		ft_putchar((char)c);
-	else if (f->flag == '-')
-	{
-		ft_putchar(c);
-		while (f->width > 1)
+	i = 1;
+	d = dest;
+	s = src;
+	if ((dest == NULL && src == NULL) || len == 0)
+		return (dest);
+	if (s < d)
+		while (i <= len)
 		{
-			ft_putchar(' ');
-			f->width--;
+			d[len - i] = s[len - i];
+			i++;
 		}
-	}
 	else
-	{
-		while (f->width > 1)
+		while (len > 0)
 		{
-			ft_putchar(' ');
-			f->width--;
+			*d++ = *s++;
+			len--;
 		}
-		ft_putchar(c);
-	}
-	return (0);
+	return (dest);
 }
