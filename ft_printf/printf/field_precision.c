@@ -34,7 +34,7 @@ int		field_precision(const char *format, va_list arg)
 				precision = va_arg(arg, int);
 				break ;
 			}
-			while (ft_isnumber(*format))
+			while (isnumber(*format))
 			{
 				precision = precision * 10 + *format -48;
 				format++;
