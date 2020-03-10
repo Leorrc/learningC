@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:34:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/06 21:34:34 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:24:16 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int		nblen(long n, int base)
 char	*ft_itoa_base(long i, int base)
 {
 	char	*result;
-	char	*tab_base;
+	char	*tab;
 	long	len;
 	long	p;
 
 	p = nblen(i, base);
 	len = p;
-	tab_base = ft_strdup("0123456789abcdef");
+	tab = ft_strdup("0123456789abcdef");
 	result = ft_strnew(len + 1);
 	if (i == 0)
 		result[0] = '0';
@@ -50,7 +50,7 @@ char	*ft_itoa_base(long i, int base)
 	}
 	while (i / base >= 0 && ((i > 0) ? (--len >= 0) : (--len > 0)))
 	{
-		result[len] = tab_base[i % base];
+		result[len] = tab[i % base];
 		i = i /base;
 	}
 	result[p] = '\0';

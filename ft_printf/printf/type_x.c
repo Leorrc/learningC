@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 19:36:04 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 20:06:18 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:59:56 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,15 @@ char	*width_x(char *src, t_fields *f)
 	return (w);
 }
 
-int		type_x(t_fields *f, unsigned int arg)
+int		type_x(t_fields *f, unsigned long arg)
 {
 	char	*x;
 	char	*p;
 	char	*w;
 
 	x = ft_itoa_base(arg, 16);
+	if (f->type == 'X')
+		x = ft_strupcase(x);
 	p = precision_x(x, f);
 	w = width_x(p, f);
 	ft_putstr(w);

@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:37:00 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 16:23:24 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:26:03 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ char	*ft_strnew(int len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_isnumber(char c);
 int		nblen(long n, int base);
+char	*ft_strupcase(char *s);
 int		type_c(t_fields *f, int arg);
 int		type_s(t_fields *f, char *arg);
 int		type_d(t_fields *f, int arg);
+int		type_u(t_fields *f, unsigned int arg);
+int		type_x(t_fields *f, unsigned long arg);
+int		type_p(t_fields *f, unsigned long arg);
+int		type_percent(t_fields *f);
 
 
 #endif
