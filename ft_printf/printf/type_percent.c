@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 17:00:14 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 17:49:54 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:22:20 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int		type_percent(t_fields *f)
 	else
 		w[0] = '%';
 	ft_putstr(w);
-	return (0);
+	return ((int)ft_strlen(w));
 }
