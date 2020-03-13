@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_percent.c                                     :+:      :+:    :+:   */
+/*   nullterm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/10 17:00:14 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 18:22:20 by lramos-r         ###   ########.fr       */
+/*   Created: 2020/03/12 17:22:57 by lramos-r          #+#    #+#             */
+/*   Updated: 2020/03/12 17:42:39 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		type_percent(t_fields *f)
+int		nullterm(t_fields *f, int arg)
 {
-	char	*w;
+	int		i;
 
-	w = ft_strnew(1);
-	if (f->width > 1)
+	i = 1;
+	if (f->flag == '-')
 	{
-		w = ft_strnew(f->width);
-		if (f->flag == '-')
+		ft_putchar(arg);
+		while (i < f->width)
 		{
-			w[0] = '%';
-			ft_memset(&w[1], ' ', f->width - 1);
-		}
-		else if (f->flag == '0')
-		{
-			ft_memset(w, '0', f->width - 1);
-			w[f->width - 1] = '%';
-		}
-		else
-		{
-			ft_memset(w, ' ', f->width - 1);
-			w[f->width - 1] = '%';
+			ft_putchar(' ');
+			i++;
 		}
 	}
 	else
-		w[0] = '%';
-	ft_putstr(w);
-	return ((int)ft_strlen(w));
+	{
+		while (i < f->width)
+		{
+			ft_putchar(' ');
+			i++;
+		}
+		ft_putchar(arg);
+	}
+	return (i);
 }

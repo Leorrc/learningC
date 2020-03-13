@@ -6,13 +6,13 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:34:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 15:24:16 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 16:10:40 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		nblen(long n, int base)
+int		nblen(long long n, int base)
 {
 	int		len;
 
@@ -30,12 +30,12 @@ int		nblen(long n, int base)
 	return (len);
 }
 
-char	*ft_itoa_base(long i, int base)
+char	*ft_itoa_base(long long i, int base)
 {
-	char	*result;
-	char	*tab;
-	long	len;
-	long	p;
+	char		*result;
+	char		*tab;
+	long		len;
+	long long	p;
 
 	p = nblen(i, base);
 	len = p;

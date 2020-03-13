@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:17:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/09 14:54:46 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:34:41 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,32 @@
 
 int		type_c(t_fields *f, int arg)
 {
-	unsigned char	c;
+	char			*w;
 
-	c = (unsigned char)arg;
-	if (f->width == 0)
-		ft_putchar((char)c);
-	else if (f->flag == '-')
+	if (arg == '\0')
+		return (nullterm(f, arg));
+	w = ft_strnew(1);
+	if (f->width > 1)
 	{
-		ft_putchar(c);
-		while (f->width > 1)
+		w = ft_strnew(f->width);
+		if (f->flag == '-')
 		{
-			ft_putchar(' ');
-			f->width--;
+			w[0] = (unsigned char)arg;
+			ft_memset(&w[1], ' ', f->width - 1);
+		}
+		else if (f->flag == '0')
+		{
+			ft_memset(w, '0', f->width - 1);
+			w[f->width - 1] = (unsigned char)arg;
+		}
+		else
+		{
+			ft_memset(w, ' ', f->width - 1);
+			w[f->width - 1] = (unsigned char)arg;
 		}
 	}
 	else
-	{
-		while (f->width > 1)
-		{
-			ft_putchar(' ');
-			f->width--;
-		}
-		ft_putchar(c);
-	}
-	return (0);
+		w[0] = (unsigned char)arg;
+	ft_putstr(w);
+	return ((int)ft_strlen(w));
 }

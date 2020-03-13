@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 15:00:45 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 15:14:12 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 16:25:25 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,19 @@ char	*width_d(char *src, t_fields *f)
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
 		}
-		else if (f->flag == '0')
+		else if (f->flag == '0' && f->precision	== -1)
 		{
-			ft_memset(w, '0', f->width - len);
-			ft_memmove(&w[f->width - len], src, len);
+			if (src[0] == '-')
+			{
+				w[0] = '-';
+				ft_memset(&w[1], '0', f->width - len + 1);
+				ft_memmove(&w[f->width - len + 1], &src[1], len);
+			}
+			else
+			{
+				ft_memset(w, '0', f->width - len);
+				ft_memmove(&w[f->width - len], src, len);
+			}
 		}
 		else
 		{	
@@ -74,9 +83,12 @@ int		type_d(t_fields *f, int arg)
 	char	*w;
 	char	*p;
 
-	d = ft_itoa_base(arg, 10);
+	if (f->precision == 0 && arg == 0)
+		d = ft_strdup("");
+	else
+		d = ft_itoa_base(arg, 10);
 	p = precision_d(d, f);
 	w = width_d(p, f);
 	ft_putstr(w);
-	return (0);
+	return ((int)ft_strlen(w));
 }

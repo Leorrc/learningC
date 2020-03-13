@@ -6,52 +6,69 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:23:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/06 21:39:37 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 12:42:09 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		type_s(t_fields *f, char *arg)
+char	*precision_s(char *src, t_fields *f) 
 {
+	char	*p;
 	int		len;
-	char	*s;
 
-	len = (int)ft_strlen(arg);
-	s = ft_strdup(arg);
-	if (f->precision)
-	{
-		if (f->precision == 0)
-			s = ft_strnew(1);
-		else if (len > f->precision)
-			s = ft_substr(arg, 0, f->precision);
-	}
-	len = (int)ft_strlen(s);
-	if (len >= f->width)
-	{
-		ft_putstr(s);
-		return (0);
-	}
-	f->width = f->width - len;
-	if (f->flag == '-')
-	{
-		ft_putstr(s);
-		while (f->width > 0)
-		{
-			ft_putchar(' ');
-			f->width--;
-		}
-	}
-	else if (f->flag == '0')
-		return (-1);
+	len = (int)ft_strlen(src);
+	if (f->precision == 0)
+		p = ft_strdup("");
+	else if (f->precision >= len || f->precision < 0)
+		p = ft_strdup(src);
 	else
 	{
-		while (f->width > 0)
-		{
-			ft_putchar(' ');
-			f->width--;
-		}
-		ft_putstr(s);
+		p = ft_strnew(f->precision);
+		ft_memmove(p, src, f->precision);
 	}
-	return (0);
+	return (p);
+}
+
+char	*width_s(char *src, t_fields *f)
+{
+	char	*w;
+	int		len;
+
+	len = (int)ft_strlen(src);
+	if (f->width <= len)
+		w = ft_strdup(src);
+	else
+	{
+		w = ft_strnew(f->width);
+		if (f->flag == '-')
+		{
+			ft_memmove(w, src, len);
+			ft_memset(&w[len], ' ', f->width - len);
+		}
+		else if (f->flag == '0')
+		{
+			ft_memset(w, '0', f->width - len);
+			ft_memmove(&w[f->width - len], src, len);
+		}
+		else
+		{
+			ft_memset(w, ' ', f->width - len);
+			ft_memmove(&w[f->width - len], src, len);
+		}
+	}
+	return (w);
+}
+
+int		type_s(t_fields *f, char *arg)
+{
+	char	*p;
+	char	*w;
+
+	if (arg == NULL)
+		arg = "(null)";
+	p = precision_s(arg, f);
+	w = width_s(p, f);
+	ft_putstr(w);
+	return ((int)ft_strlen(w));
 }

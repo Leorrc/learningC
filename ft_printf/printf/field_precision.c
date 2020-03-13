@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:55:42 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/06 21:37:52 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 12:22:58 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 int		field_precision(const char *format, va_list arg)
 {
 	int		precision;
+	int		i;
 	char	type;
 
 	type = field_types(format);
-	precision = 0;
-	while (*format && *format != type)
+	precision = -1;
+	i = 0;
+	while (format[i] && format[i] != type)
 	{
 		if (!(ft_strchr(format, '.')))
-		{
-			precision = -1;
 			break ;
-		}
-		else if (*format == '.')
+		else if (format[i] == '.')
 		{
-			format++;
-			if (*format == '*')
+			i++;
+			if (format[i] == '*')
 			{
 				precision = va_arg(arg, int);
 				break ;
 			}
-			while (isnumber(*format))
+			precision = 0;
+			while (format[i] >= '0' && format[i] <= '9')
 			{
-				precision = precision * 10 + *format -48;
-				format++;
+				precision = precision * 10 + format[i] - 48;
+				i++;
 			}
 			break ;
 		}
-		format++;
+		i++;
 	}
 	return (precision);
 }

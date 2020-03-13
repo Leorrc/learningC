@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 20:37:00 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 17:26:03 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 17:29:18 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		field_flags(const char *format);
 int		field_precision(const char *format, va_list arg);
 char	field_types(const char *format);
 int		field_width(const char *format, va_list arg);
-char	*ft_itoa_base(long i, int base);
+char	*ft_itoa_base(long long i, int base);
 void	*ft_memset(void *str, int c, size_t len);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 int		ft_printf(const char *format, ...);
@@ -43,15 +43,14 @@ size_t		ft_strlen(const char *t);
 char	*ft_strnew(int len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_isnumber(char c);
-int		nblen(long n, int base);
 char	*ft_strupcase(char *s);
+int		nullterm(t_fields *f, int arg);
 int		type_c(t_fields *f, int arg);
 int		type_s(t_fields *f, char *arg);
 int		type_d(t_fields *f, int arg);
-int		type_u(t_fields *f, unsigned int arg);
+int		type_u(t_fields *f, unsigned long arg);
 int		type_x(t_fields *f, unsigned long arg);
 int		type_p(t_fields *f, unsigned long arg);
-int		type_percent(t_fields *f);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 18:27:06 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 15:13:38 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 16:28:59 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*width_u(char *src, t_fields *f)
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
 		}
-		else if (f->flag == '0')
+		else if (f->flag == '0' && f->precision == -1)
 		{
 			ft_memset(w, '0', f->width - len);
 			ft_memmove(&w[f->width - len], src, len);
@@ -59,15 +59,18 @@ char	*width_u(char *src, t_fields *f)
 	return (w);
 }
 
-int		type_u(t_fields *f, unsigned int arg)
+int		type_u(t_fields *f, unsigned long  arg)
 {
 	char	*u;
 	char	*p;
 	char	*w;
 
-	u = ft_itoa_base(arg, 10);
+	if (f->precision == 0 && arg == 0)
+		u = ft_strdup("");
+	else
+		u = ft_itoa_base(arg, 10);
 	p = precision_u(u, f);
 	w = width_u(p, f);
 	ft_putstr(w);
-	return (0);
+	return ((int)ft_strlen(w));
 }

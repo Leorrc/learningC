@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 19:36:04 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/10 16:59:56 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 17:34:10 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*width_x(char *src, t_fields *f)
 	char	*w;
 	int		len;
 
-	len = ft_strlen(src);
+	len = (int)ft_strlen(src);
 	if (f->width <= len)
 		w = ft_strdup(src);
 	else
@@ -54,10 +54,19 @@ char	*width_x(char *src, t_fields *f)
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
 		}
-		else if (f->flag == '0')
+		else if (f->flag == '0' && f->precision == -1)
 		{
-			ft_memset(w, '0', f->width - len);
-			ft_memmove(&w[f->width - len], src, len);
+			if (src[0] == '0')
+			{
+				w[0] = '-';
+				ft_memset(&w[1], '0', f->width - len + 1);
+				ft_memmove(&w[f->width - len + 1], &src[1], len);
+			}
+			else
+			{
+				ft_memset(w, '0', f->width - len);
+				ft_memmove(&w[f->width - len], src, len);
+			}
 		}
 		else
 		{
@@ -74,11 +83,14 @@ int		type_x(t_fields *f, unsigned long arg)
 	char	*p;
 	char	*w;
 
-	x = ft_itoa_base(arg, 16);
+	if (f->precision == 0 && arg == 0)
+		x = ft_strdup("");
+	else
+		x = ft_itoa_base(arg, 16);
 	if (f->type == 'X')
 		x = ft_strupcase(x);
 	p = precision_x(x, f);
 	w = width_x(p, f);
 	ft_putstr(w);
-	return (0);
+	return ((int)ft_strlen(w));
 }

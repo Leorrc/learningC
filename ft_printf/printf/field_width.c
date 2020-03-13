@@ -6,7 +6,7 @@
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 19:50:46 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/06 19:55:27 by lramos-r         ###   ########.fr       */
+/*   Updated: 2020/03/13 11:56:15 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 int		field_width(const char *format, va_list arg)
 {
 	int		width;
+	int		i;
 
+	i = 0;
 	width = 0;
-	while (*format)
+	while (format[i])
 	{
-		if (*format == '*')
+		if (format[i] == '.')
+			break ;
+		if (format[i] == '*')
 		{
 			width = va_arg(arg, int);
 			break;
 		}
-		if (isnumber(*format) && *format != '0')
+		if (format[i] > '0' && format[i] <= '9')
 		{
-			while (isnumber(*format))
+			while (format[i] >= '0' && format[i] <= '9')
 			{
-				width = width * 10 + *format - 48;
-				format++;
+				width = width * 10 + format[i] - 48;
+				i++;
 			}
 			break;
 		}
-		format++;
+		i++;
 	}
 	return (width);
 }
