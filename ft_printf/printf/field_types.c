@@ -20,14 +20,14 @@ char	field_types(const char *format)
 	conv = "cspdiuxX%";
 	type = 0;
 	format++;
-	while (*conv)
+	while (*format)
 	{
-		if (ft_strchr(format, *conv))
+		if (ft_strchr(conv, *format))
 		{
-			type = *conv;
+			type = *format;
 			break;
 		}
-		conv++;
+		format++;
 	}
 	return (type);
 }
