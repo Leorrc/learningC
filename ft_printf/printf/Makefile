@@ -28,7 +28,7 @@ H			= printf.h
 all:$(NAME)
 
 $(NAME):
-		gcc -c $(FLAG) $(SRC) -I $(H)
+		gcc -c $(FLAG) $(SRC) $(H)
 		ar rc $(NAME) $(OBJ)
 		ranlib $(NAME)
 

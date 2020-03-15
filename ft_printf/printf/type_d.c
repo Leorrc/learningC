@@ -44,7 +44,12 @@ char	*width_d(char *src, t_fields *f)
 	int		len;
 	
 	len = (int)ft_strlen(src);
-	if (f->width <= len)
+  if (f->width < 0)
+  {
+    f->width = f->width*(-1);
+    f->flag = '-';
+  }
+	if (f->width <= len && f->width >= 0)
 		w = ft_strdup(src);
 	else
 	{

@@ -1,14 +1,38 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "printf.h"
 
 int main()
-
 {
-	//char	*n;
-	//static char *s_hidden = "hi low\0don't print me lol\0";
-    printf(" <%d>\n", ft_printf("this %17x number", 17));
-    printf(" <%d>\n", printf("this %17x number", 17));
-	printf("%s\n", ft_itoa_base(17, 16));
-	return (0);
+        int             a = -4;
+        int             b = 0;
+        char    c = 'a';
+        int             d = 2147483647;
+        int             e = -2147483648;
+        int             f = 42;
+        int             g = 25;
+        int             h = 4200;
+        int             i = 8;
+        int             j = -12;
+        int             k = 123456789;
+        int             l = 0;
+        int             m = -12345678;
+        char    *n = "abcdefghijklmnop";
+        char    *o = "-a";
+        char    *p = "-12";
+        char    *q = "0";
+        char    *r = "%%";
+        char    *s = "-2147483648";
+        char    *t = "0x12345678";
+        char    *u = "-0";
+
+/*
+        printf(" <%d>\n", ft_printf("%*i", a, k)); 
+        printf(" <%d>\n", printf("%*i", a, k)); 
+*/
+        
+        printf(" <%d>\n", ft_printf("%*i, %*d, %*d, %*d, %*d, %*d, %*d, %*d", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d));
+        printf(" <%d>\n", printf("%*i, %*d, %*d, %*d, %*d, %*d, %*d, %*d", a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d));
+       
+        return (0);
 }
-	

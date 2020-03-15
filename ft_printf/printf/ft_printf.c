@@ -60,6 +60,6 @@ int		ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(arg);
-	return ((int)f->type);
-	//return (soma + j);
+	//return ((int)f->width);
+	return (soma + j);
 }
