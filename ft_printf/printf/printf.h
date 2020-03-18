@@ -45,6 +45,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_isnumber(char c);
 char	*ft_strupcase(char *s);
 int		nullterm(t_fields *f, int arg);
+int   ft_strcmp(char *s1, char *s2);
 int		type_c(t_fields *f, int arg);
 int		type_s(t_fields *f, char *arg);
 int		type_d(t_fields *f, int arg);

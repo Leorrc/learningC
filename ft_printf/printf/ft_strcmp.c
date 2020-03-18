@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   field_types.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lramos-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 19:09:44 by lramos-r          #+#    #+#             */
-/*   Updated: 2020/03/13 18:48:09 by lramos-r         ###   ########.fr       */
+/*   Created: 2019/10/14 11:20:10 by lramos-r          #+#    #+#             */
+/*   Updated: 2019/10/14 12:16:56 by lramos-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "printf.h"
 
-char	field_types(const char *format)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*conv;
-	char	type;
+	int i;
 
-	conv = "cspdiuxX%";
-	type = -1;
-	format++;
-	while (*format)
-	{
-		if (ft_strchr(conv, *format))
-		{
-			type = *format;
-			break;
-		}
-		format++;
-	}
-	return (type);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

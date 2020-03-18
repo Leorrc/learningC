@@ -34,7 +34,7 @@ int		ft_printf(const char *format, ...)
 		else
 		{
 			f = calc_fields(format, arg);
-			if (f->type == 0)
+			if (f->type == -1)
 				break ;
 			if (f->type == 's')
 				i = type_s(f, va_arg(arg, char *));
@@ -60,6 +60,8 @@ int		ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(arg);
-	//return ((int)f->width);
-	return (soma + j);
+	//return ((int)f->type);
+	if (ft_strcmp(format, "%") == 0)
+    j = -1;
+  return (soma + j);
 }
