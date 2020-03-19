@@ -77,7 +77,7 @@ char	*width_x(char *src, t_fields *f)
 	return (w);
 }
 
-int		type_x(t_fields *f, unsigned long arg)
+int		type_x(t_fields *f, unsigned int arg)
 {
 	char	*x;
 	char	*p;

@@ -28,7 +28,7 @@ int		field_width(const char *format, va_list arg)
 			width = va_arg(arg, int);
 			break;
 		}
-		if (format[i] > '0' && format[i] <= '9')
+    else if (format[i] > '0' && format[i] <= '9')
 		{
 			while (format[i] >= '0' && format[i] <= '9')
 			{

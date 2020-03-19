@@ -59,7 +59,7 @@ char	*width_u(char *src, t_fields *f)
 	return (w);
 }
 
-int		type_u(t_fields *f, unsigned long  arg)
+int		type_u(t_fields *f, unsigned int arg)
 {
 	char	*u;
 	char	*p;

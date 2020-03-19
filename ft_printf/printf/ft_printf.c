@@ -36,22 +36,31 @@ int		ft_printf(const char *format, ...)
 			f = calc_fields(format, arg);
 			if (f->type == -1)
       {
-        soma = -1;
-        i = -1;
-				break ;
+        if (ft_strcmp(format, "%") == 0)
+        {
+          soma = -1;
+          i = -1;
+          break ;
+        }
+        else
+        {
+          ft_putstr(format);
+          soma = ft_strlen(format);
+				  break ;
+        }
       }
-			if (f->type == 's')
+      else if (f->type == 's')
 				i = type_s(f, va_arg(arg, char *));
 			else if (f->type == 'c')
 				i = type_c(f, va_arg(arg, int));
 			else if (f->type == 'd' || f->type == 'i')
 				i = type_d(f, va_arg(arg, int));
 			else if (f->type == 'u')
-				i = type_u(f, va_arg(arg, unsigned long));
+        i = type_u(f, va_arg(arg, unsigned int));
 			else if (f->type == 'x' || f->type == 'X')
-				i = type_x(f, va_arg(arg, unsigned long));
+				i = type_x(f, va_arg(arg, unsigned int));
 			else if (f->type == 'p')
-				i = type_p(f, va_arg(arg, unsigned long));
+				i = type_p(f, va_arg(arg, unsigned int));
 			else if (f->type == '%')
 			{
 				i = type_c(f, '%');
@@ -64,6 +73,6 @@ int		ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(arg);
-	//return ((int)f->type);
-  return (soma + j);
+	return ((int)f->width);
+  //return (soma + j);
 }

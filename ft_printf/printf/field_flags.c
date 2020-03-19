@@ -17,8 +17,8 @@ char	field_flags(const char *format)
 	char	flag;
 
 	flag = 0;
-	if (ft_strchr(format, '0'))
-		flag = '0';
+  if (format[1] == '0' && format[0] == '%')
+    flag = '0';
 	if (ft_strchr(format, '-'))
 		flag = '-';
 	return (flag);

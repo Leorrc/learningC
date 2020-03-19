@@ -4,7 +4,9 @@
 
 int main()
 {
-  printf("\n<%d>\n", ft_printf("%1$"));
-  printf("\n<%d>\n", printf("%1$"));
+  ft_printf("%*s\n", 13, "leonardo");
+  /*
+  printf("\n<%d>\n", ft_printf("%%-*.3s LYDI == |%-*.3s|n", 5, "LYDI"));
+  printf("\n<%d>\n", printf("%%-*.3s LYDI == |%-*.3s|n", 5, "LYDI"));*/
   return 0;
 }
