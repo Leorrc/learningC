@@ -70,9 +70,14 @@ int		type_p(t_fields *f, unsigned long arg)
 	char	*prec;
 	char	*wid;
 
+  if (arg == NULL)
+  {
+    ft_putstr("(nil)");
+    return (ft_strlen("(nil)"));
+  }
 	p = ft_itoa_base(arg, 16);
 	prec = precision_p(p, f);
 	wid = width_p(prec, f);
 	ft_putstr(wid);
-	return (0);
+	return ((int)ft_strlen(wid));
 }

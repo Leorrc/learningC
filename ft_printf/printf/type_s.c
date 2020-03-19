@@ -65,8 +65,10 @@ int		type_s(t_fields *f, char *arg)
 	char	*p;
 	char	*w;
 
-	if (arg == NULL)
+	if (arg == NULL && f->width == 0 && f->precision == -1)
 		arg = "(null)";
+  else if (arg == NULL)
+    arg = ft_strdup("");
 	p = precision_s(arg, f);
 	w = width_s(p, f);
 	ft_putstr(w);

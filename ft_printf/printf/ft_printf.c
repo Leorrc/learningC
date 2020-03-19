@@ -35,7 +35,11 @@ int		ft_printf(const char *format, ...)
 		{
 			f = calc_fields(format, arg);
 			if (f->type == -1)
+      {
+        soma = -1;
+        i = -1;
 				break ;
+      }
 			if (f->type == 's')
 				i = type_s(f, va_arg(arg, char *));
 			else if (f->type == 'c')
@@ -61,7 +65,5 @@ int		ft_printf(const char *format, ...)
 	}
 	va_end(arg);
 	//return ((int)f->type);
-	if (ft_strcmp(format, "%") == 0)
-    j = -1;
   return (soma + j);
 }
