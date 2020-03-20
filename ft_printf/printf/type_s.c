@@ -36,6 +36,11 @@ char	*width_s(char *src, t_fields *f)
 	int		len;
 
 	len = (int)ft_strlen(src);
+  if (f->width < 0)
+  {
+    f->width = f->width*(-1);
+    f->flag = '-';
+  }
 	if (f->width <= len)
 		w = ft_strdup(src);
 	else

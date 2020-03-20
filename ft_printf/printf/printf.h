@@ -49,9 +49,9 @@ int   ft_strcmp(char *s1, char *s2);
 int		type_c(t_fields *f, int arg);
 int		type_s(t_fields *f, char *arg);
 int		type_d(t_fields *f, int arg);
-int		type_u(t_fields *f, unsigned long arg);
-int		type_x(t_fields *f, unsigned long arg);
-int		type_p(t_fields *f, unsigned long arg);
+int		type_u(t_fields *f, unsigned int arg);
+int		type_x(t_fields *f, unsigned int arg);
+int		type_p(t_fields *f, unsigned int arg);
 
 
 #endif

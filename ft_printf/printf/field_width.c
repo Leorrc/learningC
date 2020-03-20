@@ -21,23 +21,30 @@ int		field_width(const char *format, va_list arg)
 	width = 0;
 	while (format[i])
 	{
-		if (format[i] == '.')
-			break ;
-		if (format[i] == '*')
-		{
-			width = va_arg(arg, int);
-			break;
-		}
-    else if (format[i] > '0' && format[i] <= '9')
-		{
-			while (format[i] >= '0' && format[i] <= '9')
-			{
-				width = width * 10 + format[i] - 48;
-				i++;
-			}
-			break;
-		}
-		i++;
+    if (format[i] == '%')
+    {
+      i++;
+		  if (format[i] == '.' || format[i] == '%')
+			  break ;
+		  while (format[i] == '-' || format[i] == '0')
+        i++;
+		  if (format[i] == '*')
+		  {
+			  width = va_arg(arg, int);
+			  break;
+	  	}
+      else if (format[i] > '0' && format[i] <= '9')
+		  {
+			  while (format[i] >= '0' && format[i] <= '9')
+			  {
+				  width = width * 10 + format[i] - 48;
+				  i++;
+			  }
+			  break;
+		  }
+      break ;
+    }
+    i++;
 	}
 	return (width);
 }
