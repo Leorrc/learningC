@@ -17,6 +17,11 @@ int		nullterm(t_fields *f, int arg)
 	int		i;
 
 	i = 1;
+  if (f->width < 0)
+  {
+    f->width = f->width * (-1);
+    f->flag = '-';
+  }
 	if (f->flag == '-')
 	{
 		ft_putchar(arg);

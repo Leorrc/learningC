@@ -74,5 +74,7 @@ int		ft_printf(const char *format, ...)
 	}
 	va_end(arg);
 	//return ((int)f->width);
-  return (soma + j);
+	//return ((int)f->precision);
+	return ((int)f->flag);
+  //return (soma + j);
 }

@@ -72,10 +72,12 @@ int		type_p(t_fields *f, unsigned int arg)
 
   if (arg == NULL)
   {
-    ft_putstr("(nil)");
-    return (ft_strlen("(nil)"));
+    return (type_s(f, "(nil)"));
+    //ft_putstr("(nil)");
+    //return (ft_strlen("(nil)"));
   }
-	p = ft_itoa_base(arg, 16);
+  else
+    p = ft_itoa_base(arg, 16);
 	prec = precision_p(p, f);
 	wid = width_p(prec, f);
 	ft_putstr(wid);

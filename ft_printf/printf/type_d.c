@@ -59,7 +59,7 @@ char	*width_d(char *src, t_fields *f)
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
 		}
-		else if (f->flag == '0' && f->precision	== -1)
+		else if (f->flag == '0' && f->precision	< 0)
 		{
 			if (src[0] == '-')
 			{

@@ -18,6 +18,8 @@ char	*precision_u(char *src, t_fields *f)
 	int		len;
 
 	len = (int)ft_strlen(src);
+  //if (f->precision < 0)
+    //f->precision = f->precision * (-1);
 	if (f->precision <= len)
 		p = ft_strdup(src);
 	else
@@ -35,6 +37,8 @@ char	*width_u(char *src, t_fields *f)
 	int		len;
 
 	len = (int)ft_strlen(src);
+  if (f->width < 0)
+    f->width = f->width * (-1);
 	if (f->width <= len)
 		w = ft_strdup(src);
 	else
@@ -45,7 +49,7 @@ char	*width_u(char *src, t_fields *f)
 			ft_memmove(w, src, len);
 			ft_memset(&w[len], ' ', f->width - len);
 		}
-		else if (f->flag == '0' && f->precision == -1)
+		else if (f->flag == '0' && f->precision < 0)
 		{
 			ft_memset(w, '0', f->width - len);
 			ft_memmove(&w[f->width - len], src, len);
