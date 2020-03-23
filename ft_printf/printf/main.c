@@ -27,13 +27,13 @@ int main()
   char  *u = "-0";
   int   pr;
 
-//  ft_printf("|%-c||%*c|\n", '-', -a, '-');
-  //printf("|%-c||%*c|\n", '-', -a, '-');
+  //ft_printf("|%10c||%-5c|\n", '-', '-');
+  //printf("|%10c||%-5c|\n", '-', '-');
  
-  pr = ft_printf("%-*c,  %*c, %-*c", a, p[0], a, q[0], a, r[0], a, c);
+  pr = ft_printf("%c,  %-c, %1c, %*c,  %-*c,  %*c, %-*c", c, n[0], o[0], -a, p[0], -a, q[0], -a, r[0], -a, c);
   printf("\n%d\n", pr);
 
-  pr = printf("%-*c,  %*c, %-*c", a, p[0], a, q[0], a, r[0], a, c);
+  pr = printf("%c,  %-c, %1c, %*c,  %-*c,  %*c, %-*c", c, n[0], o[0], -a, p[0], -a, q[0], -a, r[0], -a, c);
   printf("\n%d\n", pr);
   return (0);
 }

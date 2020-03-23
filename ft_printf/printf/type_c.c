@@ -20,7 +20,12 @@ int		type_c(t_fields *f, int arg)
 		return (nullterm(f, arg));
   if (f->type == '%')
     f->width = 0;
-	w = ft_strnew(1);
+  if (f->width < 0)
+  {
+    f->width *= -1;
+    f->flag = '-';
+  }
+  w = ft_strnew(1);
 	if (f->width > 1)
 	{
 		w = ft_strnew(f->width);

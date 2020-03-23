@@ -12,14 +12,12 @@
 
 #include "printf.h"
 
-
 t_fields	*calc_fields(const char *format, va_list arg)
 {
 	t_fields	*f;
 
 	if (!(f = (t_fields *)malloc(sizeof(t_fields *))))
 		return (NULL);
-	f->flag = '\0';
 	f->flag = field_flags(format);
 	f->width = field_width(format, arg);
 	f->precision = field_precision(format, arg);
